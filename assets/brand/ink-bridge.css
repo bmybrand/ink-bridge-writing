@@ -1,0 +1,305 @@
+﻿/* Ink Bridge brand overrides */
+
+/* ---------- Logos ---------- */
+img[src*="/images/logo.png"],
+img[src*="/images/logo-light.png"] {
+  height: 3rem !important;
+  width: auto !important;
+  max-width: 210px !important;
+  object-fit: contain !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  background: transparent !important;
+}
+@media (max-width: 1024px) {
+  img[src*="/images/logo.png"],
+  img[src*="/images/logo-light.png"] {
+    height: 2.5rem !important;
+    max-width: 170px !important;
+  }
+}
+footer img[src*="/images/logo.png"],
+img.h-32[src*="/images/logo.png"] {
+  height: 4rem !important;
+  max-width: 240px !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+img[class*="saturate-0"][src*="/images/logo.png"],
+img[class*="brightness"][src*="/images/logo.png"] {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* ---------- Hero: replace funky 3D books with clean cover stack ---------- */
+[class*="inset-y-10"][class*="right-10"],
+[class*="inset-y-10"][class*="right-10"] canvas,
+canvas[data-engine*="three.js"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  opacity: 0 !important;
+}
+
+/* Full-width container with true 50/50 split like the original hero */
+main > section:first-child > .container.ink-hero-split {
+  max-width: 80rem !important;
+  width: 100% !important;
+  position: relative;
+  z-index: 2;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: 1.25rem 2rem;
+  min-height: calc(100dvh - 4rem);
+  padding-top: 6.5rem !important;
+  padding-bottom: 2.5rem !important;
+}
+
+/* Copy column fills its grid cell — no extra left squeeze */
+main > section:first-child > .container.ink-hero-split > div[class*="max-w"] {
+  max-width: 36rem !important;
+  width: 100% !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  position: relative;
+  z-index: 2;
+}
+
+main > section:first-child [class*="rotate-45"],
+main > section:first-child [class*="rounded-full"][class*="border-white"] {
+  opacity: 0.18 !important;
+}
+
+main > section:first-child {
+  /* do not force homepage hero height on inner pages */
+}
+main > section:first-child:has(.ink-hero-split) {
+  min-height: 100dvh;
+}
+
+/* Books live in the right grid column */
+.ink-hero-books {
+  position: relative;
+  width: 100%;
+  min-height: 380px;
+  height: min(480px, 62vh);
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ink-hero-books__shelf {
+  position: relative;
+  width: min(520px, 100%);
+  height: 100%;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.ink-hero-book {
+  position: absolute;
+  margin: 0;
+  width: clamp(155px, 15.5vw, 230px);
+  aspect-ratio: 2 / 3;
+  border-radius: 0.45rem;
+  overflow: hidden;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.45),
+    0 8px 18px rgba(0, 0, 0, 0.25);
+  background: #0b2a3a;
+  transform-style: preserve-3d;
+}
+.ink-hero-book img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 3-book fan matching original composition */
+.ink-hero-book.is-left {
+  left: 2%;
+  top: 16%;
+  z-index: 3;
+  transform: rotateY(24deg) rotateZ(-18deg) translateZ(-40px);
+}
+.ink-hero-book.is-front {
+  left: 48%;
+  top: 4%;
+  z-index: 5;
+  transform: translateX(-50%) rotateY(-2deg) rotateZ(1deg) translateZ(60px);
+}
+.ink-hero-book.is-right {
+  right: 0;
+  top: 14%;
+  z-index: 4;
+  transform: rotateY(-26deg) rotateZ(16deg) translateZ(-20px);
+}
+
+@keyframes inkHeroFloat {
+  0%,
+  100% {
+    transform: translateX(-50%) rotateY(-2deg) rotateZ(1deg) translateZ(60px) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) rotateY(-2deg) rotateZ(1deg) translateZ(60px) translateY(-10px);
+  }
+}
+.ink-hero-book.is-front {
+  animation: inkHeroFloat 5.8s ease-in-out infinite;
+}
+
+@media (max-width: 1100px) {
+  main > section:first-child > .container.ink-hero-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: 1rem;
+  }
+  .ink-hero-book {
+    width: clamp(150px, 18vw, 210px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .ink-hero-books {
+    display: none;
+  }
+  main > section:first-child > .container.ink-hero-split {
+    display: block !important;
+    min-height: auto;
+  }
+  main > section:first-child > .container.ink-hero-split > div[class*="max-w"] {
+    max-width: 40rem !important;
+  }
+}
+
+/* Force-reveal content that never finished entrance animation */
+main h1 [style*="opacity:0"],
+main h1 [style*="opacity: 0"],
+main h2 [style*="opacity:0"],
+main h2 [style*="opacity: 0"],
+main h3 [style*="opacity:0"],
+main h3 [style*="opacity: 0"],
+main p [style*="opacity:0"],
+main p [style*="opacity: 0"],
+main a [style*="opacity:0"],
+main a [style*="opacity: 0"],
+main span [style*="opacity:0"],
+main span [style*="opacity: 0"] {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+/* ---------- Portfolio: clean professional cover grid ---------- */
+.ink-portfolio-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem 1.25rem;
+  max-width: 1080px;
+  margin: 2.75rem auto 0;
+  padding: 0 1.25rem 0.5rem;
+  width: 100%;
+}
+@media (max-width: 900px) {
+  .ink-portfolio-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .ink-portfolio-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.15rem 0.9rem;
+  }
+}
+.ink-portfolio-card {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.ink-portfolio-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 0.4rem;
+  box-shadow: 0 12px 28px rgba(2, 14, 22, 0.12);
+  background: #e8eef2;
+  display: block;
+}
+.ink-portfolio-card figcaption {
+  font-size: 0.84rem;
+  line-height: 1.35;
+  color: #0b3a52;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Hide original funky 3D fan + slide dots once grid is injected */
+section[data-ink-grid="1"] [style*="perspective"],
+section[data-ink-grid="1"] [class*="cursor-grab"],
+section[data-ink-grid="1"] button[aria-label*="slide"] {
+  display: none !important;
+}
+
+/* Neutralize residual transforms if fan briefly flashes */
+section.bg-white.overflow-hidden img.object-cover.pointer-events-none {
+  transform: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ---------- Stats / overview readability ---------- */
+section.bg-white [class*="text-primary"][class*="opacity"],
+section.bg-white .text-primary-900\/10,
+section.bg-white .text-primary-900\/20,
+section.bg-white .text-primary-900\/30 {
+  opacity: 1 !important;
+  color: #0b3a52 !important;
+}
+
+/* Keep key overview copy readable (trust / process / partner blocks) */
+section.bg-white h2:not([class*="text-white"]):not([class*="text-primary-1"]):not([class*="text-primary-2"]),
+section.bg-white h3:not([class*="text-white"]):not([class*="text-primary-1"]):not([class*="text-primary-2"]) {
+  color: #04283a;
+}
+section.bg-white p:not([class*="text-white"]):not([class*="text-primary-1"]):not([class*="text-primary-2"]) {
+  color: rgba(4, 40, 58, 0.78);
+}
+
+/* Dark panels (contact sidebar etc.) — force light headings */
+[class*="bg-primary-950"] h2,
+[class*="bg-primary-950"] h3,
+[class*="bg-primary-900"] h2,
+[class*="bg-primary-900"] h3,
+[class*="bg-[#020"] h2,
+[class*="bg-[#020"] h3,
+[class*="from-[#020"] h2,
+[class*="from-[#020"] h3,
+[class*="bg-primary-950"] h2 *,
+[class*="bg-primary-950"] h3 *,
+[class*="bg-primary-900"] h2 *,
+[class*="bg-primary-900"] h3 * {
+  color: #f4f8fb !important;
+}
+
+
+/* Soften oversized cut-off display watermarks without competing with content */
+section.bg-white [class*="text-["][class*="vw"],
+section.bg-white [class*="tracking-tighter"][class*="font-black"]:not(footer *) {
+  opacity: 0.045 !important;
+  letter-spacing: -0.04em !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+/* Blog listing cards / cover images stay visible */
+main a[href*="/blogs/"] img,
+main article img {
+  opacity: 1 !important;
+  visibility: visible !important;
+}

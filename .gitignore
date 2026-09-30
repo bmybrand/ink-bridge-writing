@@ -1,0 +1,15 @@
+.dev-certs/
+*.pem
+*.key
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+*.log
+_debug*
+_scan*
+_bump*
+_fix*
+_blog*
+.env
+.env.*
