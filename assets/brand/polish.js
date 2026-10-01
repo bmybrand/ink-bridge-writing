@@ -358,10 +358,23 @@
     });
   }
 
+  function fixDropCap() {
+    document.querySelectorAll("span.float-left").forEach(function (el) {
+      var parent = el.parentElement;
+      if (!parent) return;
+      var full = (parent.textContent || "").replace(/\s+/g, " ").trim();
+      if (!/^E\s*nk Bridge/i.test(full) && el.textContent !== "E") return;
+      if (/^E\s*nk Bridge/i.test(full) || (el.textContent === "E" && /nk Bridge/i.test(full))) {
+        el.textContent = "I";
+      }
+    });
+  }
+
   function run() {
     hideFunkyHero3D();
     fixNextImages();
     fixBlogCards();
+    fixDropCap();
     if (isHomePage()) {
       replaceHeroBooks();
       cleanPortfolio();
@@ -380,6 +393,7 @@
   new MutationObserver(function () {
     hideFunkyHero3D();
     fixNextImages();
+    fixDropCap();
     if (isHomePage()) replaceHeroBooks();
     else clearHeroBooksEverywhere();
   }).observe(document.documentElement, { childList: true, subtree: true });
